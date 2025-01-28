@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 import edu.wpi.first.wpilibj.motorcontrol.PWMTalonSRX;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.XboxController;
-//import edu.wpi.first.wpilibj.interfaces.gyro; commented this because I don't know if it is right
+
 /**
  * This is a demo program showing the use of the DifferentialDrive class. Runs the motors with
  * arcade steering.
@@ -43,8 +43,8 @@ public class Robot extends TimedRobot {
     // Drive with arcade drive.
     // That means that the Y axis drives forward
     // and backward, and the X turns left and right.
-    //m_robotDrive.arcadeDrive(-m_stick.getY()/2, -m_stick.getX()/2);
-    m_robotDrive.tankDrive(-m_stick.getY()/2, -m_stick.getX()/2);
+    m_robotDrive.arcadeDrive(-m_controller.getLeftX()/2, -m_controller.getRightY()/2);
+    //m_robotDrive.tankDrive(-m_controller.getY()/2, -m_controller.getX()/2);
     if(m_controller.getYButton()){
       m_shooter.set(1);
     }
@@ -60,13 +60,40 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousPeriodic(){
-    if (m_timer.hasElapsed(5)){
-      m_timer.stop();
+    if (m_timer.hasElapsed(23)){
+      m_robotDrive.tankDrive(0,0);
+    }
+    else if (m_timer.hasElapsed(18)){
+      m_robotDrive.tankDrive(1,1);
+    }
+    else if (m_timer.hasElapsed(17)){
+      m_robotDrive.tankDrive(1,-1);
+    }
+    else if (m_timer.hasElapsed(12)){
+      m_robotDrive.tankDrive(1,1);
+    }
+    else if (m_timer.hasElapsed(11)){
+      m_robotDrive.tankDrive(1,-1);
+    }
+    else if (m_timer.hasElapsed(6)){
+      m_robotDrive.tankDrive(1,1);
+    }
+    else if (m_timer.hasElapsed(5)){
+      m_robotDrive.tankDrive(1,-1);
+    }
+    else{
+      m_robotDrive.tankDrive(1,1);
+    }
+    /*
+    if (m_timer.hasElapsed(10)){
+      m_robotDrive.tankDrive(1,1);
+    }
+    else if (m_timer.hasElapsed(5)){
       m_robotDrive.tankDrive(0, 0);
     }
     else{
       m_robotDrive.tankDrive(1, 1);
-    }
+    }*/
   }
   //autonPeriodic
   //teleopInit
